@@ -1,8 +1,7 @@
 import os
 import json
-from typing import Dict, Any, List, Optional
-from langgraph.graph import StateGraph, START, END
-from langchain_core.documents import Document
+from typing import Optional
+from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import Typesense
 import typesense
@@ -10,7 +9,7 @@ from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 
 from src.utils.agent import render_template
-from .models import AnswerQuestionResponse, ExplanationState, Question, OptionExplanation, ReviewAnswerResponse, ReformulateContextResponse, TrainingReference, to_kebab_case, ClassifyReferencesResponse, ReferenceClassification
+from .models import AnswerQuestionResponse, ExplanationState, Question, OptionExplanation, ReviewAnswerResponse, ReformulateContextResponse, TrainingReference, to_kebab_case, ClassifyReferencesResponse
 
 load_dotenv()
 
