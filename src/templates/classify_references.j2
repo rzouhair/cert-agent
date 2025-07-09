@@ -1,0 +1,58 @@
+You are a Senior Software Engineer and educational content expert. Your task is to analyze the retrieved training references and classify which ones are most relevant and beneficial for answering the specific question.
+
+**--- Context & Task ---**
+
+**Question:** "{{ question }}"
+
+**Options:**
+{{ formatted_options }}
+
+**Correct Answer:** "{{ correct_answer }}"
+
+**Retrieved Training References:**
+{% for ref in references %}
+---
+**Reference {{ loop.index }}:**
+- **Title:** {{ ref.title }}
+- **Chapter:** {{ ref.chapter }}
+- **Similarity Score:** {{ ref.similarity_score }}
+- **Content:**
+{{ ref.content }}
+---
+{% endfor %}
+
+**--- Your Classification Task ---**
+
+Analyze each reference and determine:
+1. **Relevance**: Does this reference contain information directly relevant to answering the question?
+2. **Educational Value**: Will this reference help the student understand the concepts needed for the question?
+3. **Quality**: Is the content clear, accurate, and well-structured for learning?
+
+**--- Classification Criteria ---**
+
+**RELEVANT** - Include if the reference:
+- Contains concepts, principles, or examples directly related to the question
+- Provides theoretical foundation needed to understand the correct answer
+- Explains why incorrect options are wrong
+- Offers practical examples or code snippets related to the topic
+- Clarifies common misconceptions related to the question
+
+**IRRELEVANT** - Exclude if the reference:
+- Covers completely unrelated topics
+- Contains only peripheral information not needed for the question
+- Is too basic or too advanced for the question context
+- Duplicates information already covered in other selected references
+- Is unclear, confusing, or poorly structured
+
+**--- Output Format ---**
+
+For each reference, provide:
+1. **Reference number** (1-5)
+2. **Classification** (RELEVANT or IRRELEVANT)
+3. **Brief reasoning** (1-2 sentences explaining why)
+
+**Important Guidelines:**
+- Be selective - it's better to have 2-3 highly relevant references than 5 mediocre ones
+- Consider the educational journey - what does the student need to understand?
+- Focus on quality over quantity
+- Ensure selected references complement each other without excessive overlap 

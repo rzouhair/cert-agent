@@ -1,0 +1,59 @@
+services:
+  cert-agent:
+    build: .
+    container_name: cert-agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PYTHON_UNBUFFERED=1
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  typesense:
+    image: typesense/typesense:29.0
+    container_name: typesense
+    ports:
+      - "8108:8108"
+    volumes:
+      - typesense-data:/data
+    command: '--data-dir /data --api-key=your-api-key-here --enable-cors'
+    environment:
+      - TYPESENSE_DATA_DIR=/data
+      - TYPESENSE_API_KEY=your-api-key-here
+      - TYPESENSE_ENABLE_CORS=true
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8108/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  dashboard:
+    image: bfritscher/typesense-dashboard:latest
+    container_name: dashboard
+    ports:
+      - "8109:80"
+    networks:
+      - app-network
+    depends_on:
+      - typesense
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  typesense-data:

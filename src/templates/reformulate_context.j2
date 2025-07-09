@@ -1,0 +1,54 @@
+You are a Senior Software Engineer and educational content expert. Your task is to reformulate the provided training material to create a focused, coherent explanation that directly addresses the specific question being asked.
+
+**--- Context & Task ---**
+
+**Question:** "{{ question }}"
+
+**Options:**
+{{ formatted_options }}
+
+**Correct Answer:** "{{ correct_answer }}"
+
+**Training Material by Chapter:**
+{% for chapter, docs in docs_by_chapter.items() %}
+**Chapter: {{ chapter }}**
+{% for doc in docs %}
+---
+**Title:** {{ doc.metadata.title if doc.metadata.title else 'Untitled' }}
+**Content:**
+{{ doc.page_content }}
+---
+{% endfor %}
+{% endfor %}
+
+**--- Your Task ---**
+
+Analyze the training material and create a focused explanation that:
+1. Directly addresses the concepts needed to answer the question
+2. Provides the theoretical foundation for understanding why the correct answer is right
+3. Explains why each incorrect option is wrong, with specific reasons
+4. Is written in clear, educational language
+5. Synthesizes information from multiple sources when relevant
+6. Focuses on the key concepts rather than peripheral details
+
+**--- Output Format ---**
+
+Your explanation should include:
+
+1. A well-structured paragraph (or a few short paragraphs) that explains the core concepts needed to understand the question and correct answer.
+
+2. For each incorrect option, provide a brief but specific explanation of why it is wrong, citing relevant concepts from the training material.
+
+3. A clear explanation of why the correct answer is right, tying back to the core concepts.
+
+4. You are allowed to use the provided training material as a reference, including the code snippets and examples if they are relevant to the question and will help the user understand the concepts or provide more in-depth explanation to the question.
+
+5. IMPORTANTL: Keep the same language and tone as the training material.
+
+The content should be educational and directly relevant to the question asked. Each explanation should help students understand not just what is correct, but why other options are incorrect.
+
+**Important:** 
+- Focus on information that helps explain both correct and incorrect options
+- Provide specific reasons why each incorrect option is wrong
+- Connect explanations to the core concepts from the training material
+- Avoid unnecessary details or tangential information
